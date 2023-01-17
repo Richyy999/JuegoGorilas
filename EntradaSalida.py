@@ -48,7 +48,7 @@ def pedirDatos(tablero, gorila, velMax, velMin, angMax, angMin):
             print("Ángulo incorrecto")
             
         print(f"Introduce la velocidad (m/s): {vel}")
-        print(f"El ángulo máximo debe estar entre {angMax}º y {angMin}º")
+        print(f"El ángulo debe estar entre {angMax}º y {angMin}º")
         try:
             angulo = float(input("Introduce el ángulo: ").replace(",", "."))
             anguloCorrecto = True
