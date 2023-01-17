@@ -113,4 +113,4 @@ except KeyboardInterrupt:
     pass
 
 finally:
-    print("\nFin del juego")
+    input("\nFin del juego.\nPulsa Enter para salir")
