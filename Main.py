@@ -23,6 +23,7 @@ def disparar(tablero, gorila, vel, ang):
     tiempo = 0
     resultado = Tablero.SIN_IMPACTO
     xAntes, yAntes = -1, -1
+    primerImpacto = True
     while resultado == Tablero.SIN_IMPACTO:
         x = vel * math.cos(ang) * tiempo
         y = vel * math.sin(ang) * tiempo - GRAVEDAD * tiempo * tiempo
@@ -31,18 +32,21 @@ def disparar(tablero, gorila, vel, ang):
 
         if gorila == Tablero.GORILA_B:
             x = -x
-
+        
         resultado = Tablero.mostrarTrayectoria(tablero, x, y, gorila)
         tiempo += INCREMENTO
-
-        if x == 0 and y == 0:
+        
+        if x == 0 and y == 0 and primerImpacto:
             resultado = Tablero.SIN_IMPACTO
-
+        
         if x != xAntes or y != yAntes:
             EntradaSalida.imprimirTablero(tablero)
             time.sleep(0.1)
 
             xAntes, yAntes = x, y
+
+            if x != 0 or y != 0:
+                primerImpacto = False
 
     return xAntes, yAntes, resultado
 
