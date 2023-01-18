@@ -1,7 +1,7 @@
 import numpy
 import random
 
-TAMANO_TABLERO = 20
+TAMANO_TABLERO = 30
 
 SIN_IMPACTO = 0
 IMPACTO_BORDE = 1
@@ -140,15 +140,21 @@ def mostrarTrayectoria(tablero, x, y, gorila):
 
 def bajarGorila(tablero, columna, gorila):
     for fila in range(TAMANO_TABLERO - 1):
-        if tablero[fila + 1, columna] == EDIFICIO:
-            tablero[fila, columna] = gorila
+        casilla = tablero[fila + 1, columna]
+        if casilla == IMPACTO:
+            tablero[fila + 1, columna] = gorila
+            return
 
 
 def eliminarEdificio(tablero, fila, columna, gorila):
     vacio = False
+    gorilaBajado = False
+
     casilla = tablero[fila, columna]
     if casilla == GORILA_A or casilla == GORILA_B:
-        bajarGorila(tablero, columna, gorila)
+        bajarGorila(tablero, columna, casilla)
+        tablero[fila, columna] = VACIO
+        gorilaBajado = True
         
     elif casilla != IMPACTO:
         if casilla == VACIO:
@@ -156,7 +162,7 @@ def eliminarEdificio(tablero, fila, columna, gorila):
             
         tablero[fila, columna] = VACIO
     
-    return vacio
+    return vacio, gorilaBajado
 
 def limpiarProyectil(tablero):
     for fila in range(TAMANO_TABLERO):

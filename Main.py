@@ -54,10 +54,13 @@ def disparar(tablero, gorila, vel, ang):
 def eliminarEdificio(tablero, x, y, gorila):
     x, y = Tablero.getCoordenadas(tablero, x, y, gorila)
     for i in range(y, -1, -1):
-        vacio = Tablero.eliminarEdificio(tablero, i, x, gorila)
+        vacio, gorilaBajado = Tablero.eliminarEdificio(tablero, i, x, gorila)
         if not vacio:
             EntradaSalida.imprimirTablero(tablero)
             time.sleep(0.1)
+        
+        if gorilaBajado:
+            return
 
 
 def jugar():
