@@ -28,9 +28,9 @@ def crearTablero():
 
     for i in range(TAMANO_TABLERO):
         for j in range(TAMANO_TABLERO):
-            if esBorde(i, j):
+            if esBorde(j):
                 tablero[i, j] = BORDE
-            elif esBordeAbajo(i, j):
+            elif esBordeAbajo(i):
                 tablero[i, j] = BORDE_ABAJO
             else:
                 tablero[i, j] = VACIO
@@ -38,11 +38,11 @@ def crearTablero():
     return tablero
 
 
-def esBorde(fila, columna):
+def esBorde(columna):
     return columna == 0 or columna == TAMANO_TABLERO - 1
 
 
-def esBordeAbajo(fila, columna):
+def esBordeAbajo(fila):
     return fila == TAMANO_TABLERO - 1
 
 
@@ -117,10 +117,12 @@ def getPosicionGorila(tablero, gorila):
 def mostrarTrayectoria(tablero, x, y, gorila):
     xGorila, yGorila = getPosicionGorila(tablero, gorila)
     x, y = x + xGorila, yGorila - y
+
+    if x <= 0 or x >= TAMANO_TABLERO - 1:
+        return IMPACTO_BORDE
+
     if y < 0:
         return IMPACTO_FUERA
-    if y >= TAMANO_TABLERO - 1 or x <= 0 or x >= TAMANO_TABLERO - 1:
-        return IMPACTO_BORDE
 
     casilla = tablero[y, x]
     if casilla == VACIO or casilla == TRAYECTORIA:
@@ -156,7 +158,7 @@ def eliminarEdificio(tablero, fila, columna, gorila):
         tablero[fila, columna] = VACIO
         gorilaBajado = True
         
-    elif casilla != IMPACTO:
+    elif casilla != IMPACTO and casilla != TRAYECTORIA:
         if casilla == VACIO:
             vacio = True
             

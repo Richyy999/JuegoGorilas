@@ -4,6 +4,8 @@ import EntradaSalida
 import math
 import time
 
+SLEEP = 0.05
+
 GRAVEDAD = 9.8
 INCREMENTO = 0.01
 
@@ -39,14 +41,17 @@ def disparar(tablero, gorila, vel, ang):
         if x == 0 and y == 0 and primerImpacto:
             resultado = Tablero.SIN_IMPACTO
         
-        if x != xAntes or y != yAntes:
+        if (x != xAntes or y != yAntes) and resultado != Tablero.IMPACTO_FUERA:
             EntradaSalida.imprimirTablero(tablero)
-            time.sleep(0.1)
+            time.sleep(SLEEP)
 
             xAntes, yAntes = x, y
 
             if x != 0 or y != 0:
                 primerImpacto = False
+        
+        if resultado == Tablero.IMPACTO_FUERA:
+            resultado = Tablero.SIN_IMPACTO
 
     return xAntes, yAntes, resultado
 
@@ -57,7 +62,7 @@ def eliminarEdificio(tablero, x, y, gorila):
         vacio, gorilaBajado = Tablero.eliminarEdificio(tablero, i, x, gorila)
         if not vacio:
             EntradaSalida.imprimirTablero(tablero)
-            time.sleep(0.1)
+            time.sleep(SLEEP)
         
         if gorilaBajado:
             return
