@@ -46,13 +46,6 @@ def esBordeAbajo(fila):
     return fila == TAMANO_TABLERO - 1
 
 
-def getCelda(tablero, columna, fila):
-    filas = tablero.shape[1] - 1
-    fila = filas - fila
-
-    return tablero[fila, columna]
-
-
 def getAnchuraLibre(tablero):
     fila = TAMANO_TABLERO - 2
     casillasVacias = 0
